@@ -1,0 +1,339 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": ""
+  },
+  "basePath": "/",
+  "tags": [],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "bearer": {
+      "type": "apiKey",
+      "name": "api_token",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/contacts": {
+      "get": {
+        "parameters": [
+          {
+            "type": "string",
+            "name": "q",
+            "required": false,
+            "in": "query",
+            "description": "Filtrowanie po name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "ContactModel",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ContactModel"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/user": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "type": "number",
+            "name": "id",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/user/register": {
+      "post": {
+        "parameters": [
+          {
+            "name": "UserRegisterRequestDto",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserRegisterRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserRegisterResponseDto"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/user/login": {
+      "post": {
+        "parameters": [
+          {
+            "name": "UserLoginRequestDto",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UserLoginRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    },
+    "/photos/upload-user-avatar": {
+      "post": {
+        "parameters": [
+          {
+            "name": "file",
+            "required": true,
+            "in": "formData",
+            "description": "Upload user avatar",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ContactModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "UserRegisterRequestDto": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "password"
+      ]
+    },
+    "UserModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "admin",
+              "root"
+            ]
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "UserRegisterResponseDto": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/UserModel"
+        }
+      },
+      "required": [
+        "user"
+      ]
+    },
+    "UserLoginRequestDto": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    }
+  }
+}
